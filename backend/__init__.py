@@ -1,5 +1,6 @@
 from flask import Flask
 
+
 app = Flask(__name__)
 
 #SQL ALCHEMY CONFIGURATION
@@ -9,6 +10,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 from .models import db
 db.init_app(app)
+
+from .apis.user_api import *
 
 
 

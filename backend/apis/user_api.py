@@ -1,5 +1,5 @@
 from flask import Flask
-from ..models import app
+from backend import app
 # from ..managers import user_manager
 # from flask import render_template
 # import os
