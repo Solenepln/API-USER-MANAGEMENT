@@ -15,4 +15,10 @@ def welcome_page():
     page = UserManager.welcome()
     return render_template("welcome.html", name_recover = page)
 
-        
+@app.route('/users', methods=['GET', 'POST'])
+def afficher_users():
+    table_users = UserManager.users_display()
+    alert = table_users[0]
+    table = table_users[1]
+    return render_template('users.html', alert=alert, users = table)
+

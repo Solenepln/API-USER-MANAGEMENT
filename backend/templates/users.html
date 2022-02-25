@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href = "{{ url_for ('static', filename = 'css/style.css')}}" rel="stylesheet">
+    <title>Users page</title>
+</head>
+
+<body>
+
+
+<div class = "users">
+  {% if users %}
+    {% if not alert %}
+      <h1> Users list:</h1>
+      <table>
+        <tr>
+          <td>Username</td>
+          <td>Name</td>
+          <td>FirstName</td>
+        </tr>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.firstname }}</td>
+      </tr>
+    {% endfor %}
+    </table>       
+    {% else %}
+      <h3>Username already existing, choose another one please &#128516</h>
+    {% endif %}
+{% else %}
+  <h1>Empty database for now!</h1>
+{% endif %}
+</div>
+
+  
+
+  
+    <!--FORM-->
+    <h1>It's your turn!</h1>
+
+    <div class = "form">
+    <form action="users" method="post" class="form-example">
+        <div class="form-example">
+          <label for="username">Username: </label>
+          <input type="text" name="username" id="username" required>
+        </div>
+        <div class="form-example">
+          <label for="Password">Password: </label>
+          <input type="text" name="password" id="password" required>
+        </div>
+        <div class="form-example">
+            <label for="name">Name: </label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div class="form-example">
+            <label for="firstname">Firstname: </label>
+            <input type="text" name="firstname" id="firstname" required>
+        </div>
+        <div class="form-example">
+          <input type="submit" value="Subscribe!">
+        </div>
+      </form>
+  </div>
+</body>
+</html>
