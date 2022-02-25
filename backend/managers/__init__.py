@@ -1,1 +1,1 @@
-from .user_manager import _welcome
+#from .user_manager import welcome
