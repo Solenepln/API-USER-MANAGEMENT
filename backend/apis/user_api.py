@@ -5,7 +5,7 @@ from ..managers.user_manager import UserManager
 from flask import render_template
 import os
 
-@app.route('/test')
+@app.route('/')
 def hello():
     hello_display = UserManager.hello()
     return hello_display
@@ -21,4 +21,11 @@ def afficher_users():
     alert = table_users[0]
     table = table_users[1]
     return render_template('users.html', alert=alert, users = table)
+
+@app.route('/info', methods=['GET', 'POST'])
+def informations_user():
+    infos_user = UserManager.info_user()
+    found_username = infos_user[0]
+    users = infos_user[1]
+    return render_template('user_info.html', found_username = found_username, users = users)
 

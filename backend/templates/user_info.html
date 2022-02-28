@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href = "{{ url_for ('static', filename = 'css/style.css')}}" rel="stylesheet">
+    <title>User info</title>
+</head>
+
+<body>
+
+{% if users %}
+    {% if found_username %}
+    <h1> User informations:</h1>
+    <table>
+    <tr>
+        <td>Id</td>
+        <td>Username</td>
+        <td>Password</td>
+        <td>Name</td>
+        <td>FirstName</td>
+    </tr>
+    <tr>
+    <td>{{ found_username.id }}</td>
+    <td>{{ found_username.username }}</td>
+    <td>{{ found_username.password }}</td>
+    <td>{{ found_username.name }}</td>
+    <td>{{ found_username.firstname }}</td>
+    </tr>
+    </table>       
+    {% else %}
+        <p>no user found, sorry</p>
+    {% endif %}
+
+{% else %}
+    <h1>Empty database for now!</h1>
+{% endif %}
+
+
+
+
+  
+<h1>Looking for ...</h1>
+
+<div class = "form">
+<form action="" method="post" class="form-example">
+    <div class="form-example">
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="username" required>
+    </div>
+    <div class="form-example">
+        <input type="submit" value="Search">
+      </div>
+</div>
+</form>
+</body>
+</html>

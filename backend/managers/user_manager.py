@@ -43,4 +43,21 @@ class UserManager():
         table = (alert, users)
         return table
 
+    @classmethod
+    def info_user(self):
+        found_username = 1
+        
+        if request.method == 'POST':
+            research_username = request.form.get('username')
+            found_username = User.query.filter_by(username = research_username).first()
+            
+            if found_username:
+                found_username = found_username 
+        
+        users = User.query.all()
+
+        table = (found_username,users)
+        return table
+
+
     
