@@ -10,49 +10,31 @@
 
 <body>
 
-{% if users %}
     {% if found_username %}
-    <h1> User informations:</h1>
-    <table>
-    <tr>
-        <td>Id</td>
-        <td>Username</td>
-        <td>Password</td>
-        <td>Name</td>
-        <td>FirstName</td>
-    </tr>
-    <tr>
-    <td>{{ found_username.id }}</td>
-    <td>{{ found_username.username }}</td>
-    <td>{{ found_username.password }}</td>
-    <td>{{ found_username.name }}</td>
-    <td>{{ found_username.firstname }}</td>
-    </tr>
-    </table>       
+        {% if found_username == 1 %}
+            <h2>&#128073<a href="http://127.0.0.1:5001/users" > Please submit a valid username according to this list</a></h2>  
+        {% else %}
+            <h1> User informations:</h1>
+            <table>
+            <tr>
+                <td>Id</td>
+                <td>Username</td>
+                <td>Password</td>
+                <td>Name</td>
+                <td>FirstName</td>
+            </tr>
+            <tr>
+            <td>{{ found_username.id }}</td>
+            <td>{{ found_username.username }}</td>
+            <td>{{ found_username.password }}</td>
+            <td>{{ found_username.name }}</td>
+            <td>{{ found_username.firstname }}</td>
+            </tr>
+            </table> 
+        {% endif %}    
     {% else %}
-        <p>no user found, sorry</p>
+        <h2><a href="http://127.0.0.1:5001/users" >Please submit a username</a></h2>
     {% endif %}
 
-{% else %}
-    <h1>Empty database for now!</h1>
-{% endif %}
-
-
-
-
-  
-<h1>Looking for ...</h1>
-
-<div class = "form">
-<form action="" method="post" class="form-example">
-    <div class="form-example">
-        <label for="username">Username: </label>
-        <input type="text" name="username" id="username" required>
-    </div>
-    <div class="form-example">
-        <input type="submit" value="Search">
-      </div>
-</div>
-</form>
 </body>
 </html>

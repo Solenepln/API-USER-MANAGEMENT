@@ -1,6 +1,8 @@
 from flask import Flask
 from flask import request
+import bcrypt
 from ..models import db, User
+
 
 #utiliser une classe et enlever underscore 
 class UserManager():
@@ -33,9 +35,9 @@ class UserManager():
             if same_username:
                 alert = 1
             else:
-                # secure_password = calcul_hash(new_password)
+                hashed = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
                 #create object
-                user= User(username= new_username, password= new_password, name = new_name, firstname = new_firstname)
+                user= User(username= new_username, password= hashed, name = new_name, firstname = new_firstname)
                 db.session.add(user)
                 db.session.commit()  
             
@@ -44,20 +46,26 @@ class UserManager():
         return table
 
     @classmethod
-    def info_user(self):
-        found_username = 1
-        
-        if request.method == 'POST':
-            research_username = request.form.get('username')
-            found_username = User.query.filter_by(username = research_username).first()
+    def info_user(self,username:str): 
+        # found_username = 1  
+        # if request.method == 'POST':
+        #     research_username = request.args.get("username", "no one mentionned")
+        #     found_username = User.query.filter_by(username = research_username).first()
             
-            if found_username:
-                found_username = found_username 
+        #     if found_username:
+        #         found_username = found_username 
+        # return found_username
         
-        users = User.query.all()
-
-        table = (found_username,users)
-        return table
+        research_username = username
+        found_username = User.query.filter_by(username = research_username).first()
+            
+        if found_username:
+            found_username = found_username
+        
+        else:
+            found_username = 1
+        
+        return found_username
 
 
     

@@ -5,10 +5,8 @@ h1{
 }
 
 h2{
-    color: burlywood;
-    background: cadetblue;
-    margin-left: auto;
-    margin-right: auto;
+    color: black;
+    font-weight: bold;
 }
 
 h3{
@@ -85,4 +83,9 @@ html {
   
   caption {
     padding: 10px;
+  }
+
+  link{
+    color: chartreuse;
+    
   }
