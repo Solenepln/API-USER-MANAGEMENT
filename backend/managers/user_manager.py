@@ -18,7 +18,7 @@ class UserManager():
         #name_recover =name <=> variable = valeur 
         #name_recover is reused in welcome.html
         return name
-    
+        
     @classmethod
     def users_display(self):
         db.create_all()
@@ -35,7 +35,7 @@ class UserManager():
             if same_username:
                 alert = 1
             else:
-                hashed = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
+                hashed = bcrypt.hashpw(new_password.encode('utf8'), bcrypt.gensalt())
                 #create object
                 user= User(username= new_username, password= hashed, name = new_name, firstname = new_firstname)
                 db.session.add(user)
@@ -46,16 +46,7 @@ class UserManager():
         return table
 
     @classmethod
-    def info_user(self,username:str): 
-        # found_username = 1  
-        # if request.method == 'POST':
-        #     research_username = request.args.get("username", "no one mentionned")
-        #     found_username = User.query.filter_by(username = research_username).first()
-            
-        #     if found_username:
-        #         found_username = found_username 
-        # return found_username
-        
+    def info_user(self,username:str):  
         research_username = username
         found_username = User.query.filter_by(username = research_username).first()
             
@@ -66,6 +57,27 @@ class UserManager():
             found_username = 1
         
         return found_username
+
+    @classmethod
+    def login(self):
+        alert_username = None
+        access = None
+
+        if request.method == 'POST':
+            connexion_userame = request.form.get('username')
+            connexion_password = request.form.get('password')
+            correct_username = User.query.filter_by(username = connexion_userame).first()
+            
+            if correct_username:  
+                if bcrypt.checkpw(connexion_password.encode('utf8'), correct_username.password):
+                    access = 1
+                else:
+                    access = 0
+            else:
+                alert_username = 1
+                #print("wrong username")
+        table = (access, alert_username)
+        return table
 
 
     

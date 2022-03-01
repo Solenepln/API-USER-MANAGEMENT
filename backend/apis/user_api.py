@@ -36,3 +36,9 @@ def show_user_info(username):
     
     return render_template('user_info.html', found_username = found_username)
 
+@app.route('/login', methods=['GET', 'POST'])
+def login_user():
+    success_login = UserManager.login()
+    access_user = success_login[0]
+    alert_username = success_login[1]
+    return render_template('login.html', access_user = access_user, alert_username = alert_username)
