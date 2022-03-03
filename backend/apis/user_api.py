@@ -1,8 +1,8 @@
 from flask import Flask
 from backend import app
+from flask import request
 from markupsafe import escape
 from ..managers.user_manager import UserManager
-# from ..managers import user_manager
 from flask import render_template
 import os
 
@@ -38,7 +38,22 @@ def show_user_info(username):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_user():
-    success_login = UserManager.login()
-    access_user = success_login[0]
-    alert_username = success_login[1]
-    return render_template('login.html', access_user = access_user, alert_username = alert_username)
+    if request.method == 'POST':
+        success_login = UserManager.login()
+        access_user = success_login[0]
+        alert_username = success_login[1]
+        current_user = success_login[2]
+        
+        return render_template('login.html', access_user = access_user, alert_username = alert_username)
+    else:
+        return render_template('login_home.html')
+
+@app.route('/login/token', methods=['GET', 'POST'])
+def token():
+    if request.method == 'POST':
+        success_token = UserManager.check_token()
+        token_success = success_token[0]
+        alert_username = success_token[1]
+        return render_template('token.html',token_success = token_success, alert_username = alert_username)
+    else:
+        return render_template('home_token.html')

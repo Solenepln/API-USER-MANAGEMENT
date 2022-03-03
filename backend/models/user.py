@@ -9,6 +9,9 @@ class User(db.Model):
     password = db.Column(db.String(80), nullable=False)
     name = db.Column(db.String(80), nullable=False)
     firstname = db.Column(db.String(80), nullable=False)
+    mail = db.Column(db.String(80), nullable=False)
+    token = db.Column(db.String(100), nullable=True)          
+
 
     def __repr__(self):
-        return 'Username: %r Name: %r Firstname: %r' % (self.username,self.name,self.firstname) 
+        return 'Username: %r Name: %r Firstname: %r' (self.username,self.name,self.firstname) 

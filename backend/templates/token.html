@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Please, fill in the token received by mail: </p>
+    <form action='' method='POST'>
+      <input type="text" id="username" class="fadeIn second" name="username" placeholder="username" autocomplete="off">
+      <input type="text" id="token" class="fadeIn second" name="token" placeholder="token" autocomplete="off">
+      <input type="submit" class="fadeIn fourth" value="Confirm">
+    </form>
+
+    {% if alert_username %}
+      <p>wrong username!</p>
+
+    {% else %}
+      {% if token_success %}
+      <p>token good!</p>
+      {% else %}
+      <p>Wrong token!</p>
+      {% endif %}
+    {% endif %}
+
+    
+</body>
+</html>
+
