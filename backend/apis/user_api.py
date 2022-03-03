@@ -9,7 +9,7 @@ import os
 @app.route('/')
 def hello():
     hello_display = UserManager.hello()
-    return hello_display
+    return render_template("home.html")
 
 @app.route('/welcome', methods=['GET'])
 def welcome_page():
@@ -19,10 +19,8 @@ def welcome_page():
 @app.route('/users', methods=['GET', 'POST'])
 def afficher_users():
     #database with users
-    table_users = UserManager.users_display()
-    alert = table_users[0]
-    table = table_users[1]
-    return render_template('users.html', alert=alert, users = table)
+    alert,users = UserManager.users_display()
+    return render_template('users.html', alert=alert, users = users)
 
 @app.route('/users/')
 def look_for_user_info():
@@ -39,11 +37,7 @@ def show_user_info(username):
 @app.route('/login', methods=['GET', 'POST'])
 def login_user():
     if request.method == 'POST':
-        success_login = UserManager.login()
-        access_user = success_login[0]
-        alert_username = success_login[1]
-        current_user = success_login[2]
-        
+        access_user, alert_username, current_user = UserManager.login()
         return render_template('login.html', access_user = access_user, alert_username = alert_username)
     else:
         return render_template('login_home.html')
@@ -51,9 +45,7 @@ def login_user():
 @app.route('/login/token', methods=['GET', 'POST'])
 def token():
     if request.method == 'POST':
-        success_token = UserManager.check_token()
-        token_success = success_token[0]
-        alert_username = success_token[1]
+        token_success, alert_username = UserManager.check_token()
         return render_template('token.html',token_success = token_success, alert_username = alert_username)
     else:
         return render_template('home_token.html')

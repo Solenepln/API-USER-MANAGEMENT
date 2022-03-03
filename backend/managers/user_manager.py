@@ -47,8 +47,8 @@ class UserManager():
                 db.session.commit()  
             
         users = User.query.all()
-        table = (alert, users)
-        return table
+        
+        return alert,users
 
     @classmethod
     def info_user(self,username:str):  
@@ -102,8 +102,7 @@ class UserManager():
                     access = 0
             else:
                 alert_username = 1
-        table = (access, alert_username, current_user)
-        return table
+        return access, alert_username, current_user
 
     @classmethod
     def check_token(self):
@@ -119,5 +118,4 @@ class UserManager():
                     token_success = 1
             else:
                 alert_username = 1
-        table = (token_success, alert_username)
-        return table
+        return token_success, alert_username

@@ -1,3 +1,35 @@
+
+.crumbs ol {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ol{
+  margin-left: 20%;
+}
+
+.crumb {
+  display: inline-block;
+  padding: 12px;
+  
+}
+
+.crumb a::after {
+  display: inline-block;
+  color: black;
+  content: '>';
+  font-size: 80%;
+  font-weight: bold;
+  padding: 0 3px;
+}
+
+.crumb a {
+  color:sandybrown;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+
 h1{
     color: pink;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -89,5 +121,6 @@ html {
     color: chartreuse;
     
   }
+
 
 
