@@ -132,6 +132,12 @@ class UserManager():
                     
                 else:
                     alert_connexion_latency = 1
+                    token = Token()
+                    user.token_value = token.value
+                    user.token_expiration = token.expiration
+                    db.session.commit()
+                    UserManager.send_mail(user.mail,token.value)
+
             else:
                 alert_username = 1
         result = (alert_username, alert_connexion_latency, token_success)

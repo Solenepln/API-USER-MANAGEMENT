@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href = "{{ url_for ('static', filename = 'css/style.css')}}" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
@@ -28,11 +29,11 @@
 
     {% else %}
       {% if alert_connexion_latency%}
-        <p>regénérer un token,temps expiré!</p>
+        <p>time out, fill in new token</p>
       {% else %}
-      
+
         {% if token_success %}
-        <p>token good!</p>
+        <p>You are Log in!</p>
         {% else %}
         <p>Wrong token!</p>
         {% endif %}
