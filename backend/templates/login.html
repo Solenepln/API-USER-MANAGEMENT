@@ -16,23 +16,27 @@
     </ol>
   </nav>
 
-  <form action='' method='POST'>
-    <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username" autocomplete="off">
-    <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
-    <input type="submit" class="fadeIn fourth" value="Log In">
-  </form>
-
-  {% if alert_username %}
-    <p>Wrong Username, try again!</p>
-  {% else %}
-    {% if not access_user %}
-      <p>Wrong password, try again!</p>
+  <div>
+    <form action='' method='POST'>
+      <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username" autocomplete="off">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password">
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+  
+    {% if alert_username %}
+      <p>Wrong Username, try again!</p>
     {% else %}
+      {% if not access_user %}
+        <p>Wrong password, try again!</p>
+      {% else %}
+  
+        <h2><a href="http://127.0.0.1:5001/login/token" > PLEASE, CLICK HERE</a></h2>
+      
+      {% endif %}
+    {% endif %} 
+  </div>
 
-      <h2><a href="http://127.0.0.1:5001/login/token" > PLEASE, CLICK HERE</a></h2>
-    
-    {% endif %}
-  {% endif %} 
+  
 
 </body>
 </html>

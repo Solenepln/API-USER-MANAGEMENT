@@ -45,7 +45,10 @@ def login_user():
 @app.route('/login/token', methods=['GET', 'POST'])
 def token():
     if request.method == 'POST':
-        token_success, alert_username = UserManager.check_token()
-        return render_template('token.html',token_success = token_success, alert_username = alert_username)
+        result = UserManager.check_token()
+        alert_username = result[0]
+        alert_connexion_latency = result[1]
+        token_success = result[2] 
+        return render_template('token.html',alert_username = alert_username, alert_connexion_latency = alert_connexion_latency, token_success = token_success, )
     else:
         return render_template('home_token.html')

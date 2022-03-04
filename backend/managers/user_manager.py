@@ -1,11 +1,12 @@
 from flask import Flask
 from flask import request
 import bcrypt
-from ..models import db, User
+from ..models import db, User, Token
 from uuid import uuid4
 from sqlalchemy import insert
 import smtplib
 from email.message import EmailMessage
+from datetime import datetime
 
 #utiliser une classe et enlever underscore 
 class UserManager():
@@ -67,6 +68,17 @@ class UserManager():
     def token_generated(self):
         id_generated = str(uuid4())
         return id_generated
+    
+    @classmethod
+    def send_mail(self, mail:str, content:str):
+        msg = EmailMessage()
+        msg['Subject'] = "DO NOT REPLY"
+        msg['From'] = "verify@gmail.com"
+        msg['To'] = mail
+        msg.set_content(content)
+        server = smtplib.SMTP('22.0.6.248', 25)
+        server.send_message(msg)
+        server.quit()       
 
     @classmethod
     def login(self):
@@ -84,20 +96,13 @@ class UserManager():
             if current_user:  
                 if bcrypt.checkpw(connexion_password.encode('utf8'), current_user.password):
                     access = 1
-                    #update token for current_user
-                    token = UserManager.token_generated()
-                    current_user.token = token
+                    token = Token()
+                    current_user.token_value = token.value
+                    current_user.token_expiration = token.expiration
                     db.session.commit()
 
                     #send token to current_user
-                    msg = EmailMessage()
-                    msg['Subject'] = "DO NOT REPLY"
-                    msg['From'] = "verify@gmail.com"
-                    msg['To'] = current_user.mail
-                    msg.set_content(token)
-                    server = smtplib.SMTP('22.0.6.248', 25)
-                    server.send_message(msg)
-                    server.quit()       
+                    UserManager.send_mail(current_user.mail,token.value)
                 else:
                     access = 0
             else:
@@ -106,16 +111,29 @@ class UserManager():
 
     @classmethod
     def check_token(self):
+        connexion_time  = datetime.now().replace(microsecond=0)
         token_success = None  
         alert_username = None
+        alert_connexion_latency = None
         if request.method == 'POST':
             connected_user = request.form.get('username')
             user = User.query.filter_by(username = connected_user).first()
             token_filled = request.form.get('token')
 
             if user:
-                if user.token == token_filled:
-                    token_success = 1
+                #string format
+                _date = user.token_expiration
+                #datetime format
+                expiration_token_date = datetime.strptime(_date, "%Y-%m-%d %H:%M:%S")
+                
+                if connexion_time < expiration_token_date:
+                    if user.token_value == token_filled:
+                        token_success = 1
+                    
+                else:
+                    alert_connexion_latency = 1
             else:
                 alert_username = 1
-        return token_success, alert_username
+        result = (alert_username, alert_connexion_latency, token_success)
+
+        return result

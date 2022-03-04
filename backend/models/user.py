@@ -1,4 +1,7 @@
 from . import db
+from uuid import uuid4
+from datetime import datetime, timedelta
+from time import sleep
 
 class User(db.Model):
     
@@ -10,8 +13,26 @@ class User(db.Model):
     name = db.Column(db.String(80), nullable=False)
     firstname = db.Column(db.String(80), nullable=False)
     mail = db.Column(db.String(80), nullable=False)
-    token = db.Column(db.String(100), nullable=True)          
+    token_value = db.Column(db.String(100), nullable=True)
+    token_expiration = db.Column(db.String(100), nullable=True)
 
 
     def __repr__(self):
         return 'Username: %r Name: %r Firstname: %r' (self.username,self.name,self.firstname) 
+
+def token_generated():
+        id_generated = str(uuid4())
+        return id_generated
+
+class Token(): 
+    def __init__(self):
+        self.value = token_generated()
+        self.expiration = datetime.now().replace(microsecond=0) + timedelta(minutes=2)
+        
+    def __repr__(self):
+        return 'Value: %r Date: %r' (self.value,self.expiration)
+
+
+
+
+
