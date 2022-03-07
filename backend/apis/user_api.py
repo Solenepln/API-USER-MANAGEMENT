@@ -1,4 +1,5 @@
 from flask import Flask
+from sqlalchemy.sql.expression import table
 from backend import app
 from flask import request
 from markupsafe import escape
@@ -19,7 +20,9 @@ def welcome_page():
 @app.route('/users', methods=['GET', 'POST'])
 def afficher_users():
     #database with users
-    alert,users = UserManager.users_display()
+    table = UserManager.users_display()
+    alert = table[0]
+    users = table[1]
     return render_template('users.html', alert=alert, users = users)
 
 @app.route('/users/')
@@ -37,7 +40,10 @@ def show_user_info(username):
 @app.route('/login', methods=['GET', 'POST'])
 def login_user():
     if request.method == 'POST':
-        access_user, alert_username, current_user = UserManager.login()
+        table = UserManager.login()
+        access_user = table[0]
+        alert_username = table[1]
+        current_user = table[2]
         return render_template('login.html', access_user = access_user, alert_username = alert_username)
     else:
         return render_template('login_home.html')
@@ -45,10 +51,10 @@ def login_user():
 @app.route('/login/token', methods=['GET', 'POST'])
 def token():
     if request.method == 'POST':
-        result = UserManager.check_token()
-        alert_username = result[0]
-        alert_connexion_latency = result[1]
-        token_success = result[2] 
+        table = UserManager.check_token()
+        alert_username = table[0]
+        alert_connexion_latency = table[1]
+        token_success = table[2] 
         return render_template('token.html',alert_username = alert_username, alert_connexion_latency = alert_connexion_latency, token_success = token_success, )
     else:
         return render_template('home_token.html')

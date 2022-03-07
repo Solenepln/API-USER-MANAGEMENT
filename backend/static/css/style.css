@@ -29,11 +29,11 @@ ol{
   font-size: 1.5em;
 }
 
-
 h1{
     color: pink;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: bold;
+    font-size: 3em;
 }
 
 h2{
@@ -53,10 +53,24 @@ h3{
   border-radius: 2em;
 }
 
-.alert{
-  background-color: red;
-  font-size: 5em;
+.list {
+  padding: 12px;
+  
 }
+
+.list a{
+  color:rgb(194, 151, 151);
+  font-size: 2em;
+}
+
+.hello {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+
 
 .users{
     padding-bottom: 2em;
