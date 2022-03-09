@@ -1,5 +1,5 @@
+'''app entry point'''
 from flask import Flask
-
 
 app = Flask(__name__)
 
@@ -12,6 +12,9 @@ from .models import db
 db.init_app(app)
 
 from .apis.user_api import *
+
+from .apis import api
+api.init_app(app)
 
 
 

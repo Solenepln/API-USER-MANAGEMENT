@@ -7,8 +7,7 @@ from sqlalchemy import insert
 import smtplib
 from email.message import EmailMessage
 from datetime import datetime
-
-#utiliser une classe et enlever underscore 
+ 
 class UserManager():
     @classmethod
     def hello(self):
@@ -145,3 +144,7 @@ class UserManager():
         result = (alert_username, alert_connexion_latency, token_success)
 
         return result
+
+
+
+
