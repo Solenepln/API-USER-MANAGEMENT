@@ -13,15 +13,15 @@ api = Api(
     title = "User Management"
 )
 
-# @api.route("")
-# class Hello(Resource):
-#     def get(self):
-#         hello_display = UserManager.hello()
-#         return make_response(render_template("home.html"))
+@api.route("/home")
+class HomePage(Resource):
+    def get(self):
+        hello_display = UserManager.hello()
+        return make_response(render_template("home.html"))
         
 
 @api.route("/welcome")
-class WelcomeHome(Resource):
+class WelcomePerson(Resource):
     def get(self): 
         name = UserManager.welcome()
         return make_response(render_template("welcome.html", name_recover = name))
