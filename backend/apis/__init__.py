@@ -7,6 +7,7 @@ from markupsafe import escape
 from ..managers.user_manager import UserManager
 
 from .user_api import api as user_display
+from .login_api import api as login_action
 
 api = Api(
     title = "User Management"
@@ -27,3 +28,4 @@ class WelcomeHome(Resource):
 
 
 api.add_namespace(user_display, path="/users")
+api.add_namespace(login_action, path="/login")
