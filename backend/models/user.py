@@ -18,7 +18,8 @@ class User(db.Model):
 
 
     def __repr__(self):
-        return 'Username: %r Name: %r Firstname: %r' (self.username,self.name,self.firstname) 
+        #return 'Username: %r Name: %r Firstname: %r' (self.username,self.name,self.firstname) 
+        return f'Username: {self.username}, Name:{self.name}, Firstname:{self.firstname}'
 
 def token_generated():
         id_generated = str(uuid4())
@@ -30,7 +31,8 @@ class Token():
         self.expiration = datetime.now().replace(microsecond=0) + timedelta(minutes=2)
         
     def __repr__(self):
-        return 'Value: %r Date: %r' (self.value,self.expiration)
+        #return 'Value: %r Date: %r' (self.value,self.expiration)
+        return f'Value: {self.value}, Date: {self.expiration}'
 
 
 

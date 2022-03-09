@@ -49,7 +49,7 @@ class UserManager():
         users = User.query.all()
         table = (alert,users)
         
-        return table
+        return alert,users
 
     @classmethod
     def info_user(self,username:str):  
