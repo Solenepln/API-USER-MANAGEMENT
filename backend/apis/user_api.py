@@ -13,9 +13,8 @@ api = Namespace("users", description="user related")
 class UserApi(Resource):
     def get(self):
         #database with users
-        alert = None
-        result = UserManager.users_display()
-        return make_response(render_template('users.html', alert=alert, users = result))
+        users = UserManager.users_display()
+        return make_response(render_template('users.html', users = users))
     
     def post(self):
         result = UserManager.users_record()
