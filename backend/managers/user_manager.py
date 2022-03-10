@@ -21,35 +21,38 @@ class UserManager():
         #name_recover =name <=> variable = valeur 
         #name_recover is reused in welcome.html
         return name
-        
+    
     @classmethod
     def users_display(self):
         db.create_all()
         db.session.commit()
-        alert = None
-        if request.method == 'POST':
-            #retrieve args
-            new_username = request.form.get('username')
-            new_password = request.form.get('password')
-            new_name = request.form.get('name')
-            new_firstname = request.form.get('firstname')
-            new_mail = request.form.get('mail')
-            
-
-            same_username = User.query.filter_by(username = new_username).first()
-            if same_username:
-                alert = 1
-            else:
-                hashed = bcrypt.hashpw(new_password.encode('utf8'), bcrypt.gensalt())
-                #create object
-                user= User(username = new_username, password = hashed, name = new_name, firstname = new_firstname, mail = new_mail)
-                db.session.add(user)
-                db.session.commit()  
-            
         users = User.query.all()
-        table = (alert,users)
+        return users
+   
+    @classmethod
+    def users_record(self):
+        alert = None
+        #retrieve args
+        new_username = request.form.get('username')
+        new_password = request.form.get('password')
+        new_name = request.form.get('name')
+        new_firstname = request.form.get('firstname')
+        new_mail = request.form.get('mail')
+            
+        same_username = User.query.filter_by(username = new_username).first()
+        if same_username:
+            alert = 1
+        else:
+            hashed = bcrypt.hashpw(new_password.encode('utf8'), bcrypt.gensalt())
+            #create object
+            user= User(username = new_username, password = hashed, name = new_name, firstname = new_firstname, mail = new_mail)
+            db.session.add(user)
+            db.session.commit()  
+            
+        users = UserManager.users_display()
+        result = (alert,users)
         
-        return alert,users
+        return result
 
     @classmethod
     def info_user(self,username:str):  

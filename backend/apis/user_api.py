@@ -1,10 +1,8 @@
 from flask import Flask
-from werkzeug.wrappers.response import ResponseStream
 from flask_restx import Namespace
 from flask_restx import Api, Resource
 from backend import app
 from flask import request
-from markupsafe import escape
 from ..managers.user_manager import UserManager
 from flask import render_template, make_response
 import os
@@ -15,15 +13,14 @@ api = Namespace("users", description="user related")
 class UserApi(Resource):
     def get(self):
         #database with users
-        table = UserManager.users_display()
-        alert = table[0]
-        users = table[1]
-        return make_response(render_template('users.html', alert=alert, users = users))
+        alert = None
+        result = UserManager.users_display()
+        return make_response(render_template('users.html', alert=alert, users = result))
     
     def post(self):
-        table = UserManager.users_display()
-        alert = table[0]
-        users = table[1]
+        result = UserManager.users_record()
+        alert = result[0]
+        users = result[1]
         return make_response(render_template('users.html', alert=alert, users = users))
 
 

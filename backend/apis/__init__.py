@@ -3,7 +3,6 @@ from flask import Flask
 from flask_restx import Api, Resource, Namespace
 from backend import app
 from flask import request, render_template, make_response
-from markupsafe import escape
 from ..managers.user_manager import UserManager
 
 from .user_api import api as user_display
