@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect
 from flask_restx import Namespace
 from flask_restx import Api, Resource
 from backend import app
@@ -31,5 +31,9 @@ class UserToken(Resource):
         result = UserManager.check_token()
         alert_username = result[0]
         alert_connexion_latency = result[1]
-        token_success = result[2] 
-        return make_response(render_template('token.html',alert_username = alert_username, alert_connexion_latency = alert_connexion_latency, token_success = token_success))
+        token_success = result[2]
+
+        if token_success:
+            return make_response(redirect(render_template('personal_page.html')))
+        else:
+            return make_response(render_template('token.html',alert_username = alert_username, alert_connexion_latency = alert_connexion_latency, token_success = token_success))
