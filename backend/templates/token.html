@@ -23,23 +23,22 @@
       <input type="text" id="token" class="fadeIn second" name="token" placeholder="token" autocomplete="off">
       <input type="submit" class="fadeIn fourth" value="Confirm">
     </form>
-
-    {% if alert_username %}
-      <p>wrong username!</p>
-
+    {% if _get %}
     {% else %}
-      {% if alert_connexion_latency%}
-        <p>time out, fill in new token</p>
+      {% if alert_username %}
+        <p>wrong username!</p>
       {% else %}
-
-        {% if token_success %}
-        <p>You are Log in!</p>
+        {% if alert_connexion_latency%}
+          <p>time out, fill in new token</p>
         {% else %}
-        <p>Wrong token!</p>
+          {% if token_success %}
+          <p>You are Log in!</p>
+          {% else %}
+          <p>Wrong token!</p>
+          {% endif %}
         {% endif %}
       {% endif %}
     {% endif %}
-
   </div>
     
     

@@ -23,14 +23,14 @@ class UserManager():
         return name
     
     @classmethod
-    def users_display(self):
+    def display_users(self):
         db.create_all()
         db.session.commit()
         users = User.query.all()
         return users
    
     @classmethod
-    def users_record(self):
+    def create_user(self):
         alert = None
         #retrieve args
         new_username = request.form.get('username')
@@ -49,7 +49,7 @@ class UserManager():
             db.session.add(user)
             db.session.commit()  
             
-        users = UserManager.users_display()
+        users = UserManager.display_users()
         result = (alert,users)
         
         return result
@@ -85,33 +85,29 @@ class UserManager():
 
     @classmethod
     def login(self):
-        alert_username = None
-        access = None
-        token_success = None
-        users = User.query.all()
-
-        if request.method == 'POST':
-            connexion_userame = request.form.get('username')
-            connexion_password = request.form.get('password')
+        password_success = 0
+        connexion_userame = request.form.get('username')
+        connexion_password = request.form.get('password')
             
-            #check if username in db
-            current_user = User.query.filter_by(username = connexion_userame).first()
-            if current_user:  
-                if bcrypt.checkpw(connexion_password.encode('utf8'), current_user.password):
-                    access = 1
-                    token = Token()
-                    current_user.token_value = token.value
-                    current_user.token_expiration = token.expiration
-                    db.session.commit()
+        #check if username in db
+        user = User.query.filter_by(username = connexion_userame).first()
+        if user:
+            username_success = 1  
+            if bcrypt.checkpw(connexion_password.encode('utf8'), user.password):
+                password_success = 1
+                token = Token()
+                user.token_value = token.value
+                user.token_expiration = token.expiration
+                db.session.commit()
 
-                    #send token to current_user
-                    UserManager.send_mail(current_user.mail,token.value)
-                else:
-                    access = 0
+                #send token to user
+                UserManager.send_mail(user.mail,token.value)
             else:
-                alert_username = 1
-            table = (access, alert_username, current_user)
-        return table
+                password_success = 0
+        else:
+            username_success = 0
+        result = (password_success, username_success, user)
+        return result
 
     @classmethod
     def check_token(self):
@@ -119,33 +115,31 @@ class UserManager():
         token_success = None  
         alert_username = None
         alert_connexion_latency = None
-        if request.method == 'POST':
-            connected_user = request.form.get('username')
-            user = User.query.filter_by(username = connected_user).first()
-            token_filled = request.form.get('token')
+        connected_user = request.form.get('username')
+        user = User.query.filter_by(username = connected_user).first()
+        token_filled = request.form.get('token')
 
-            if user:
-                #string format
-                _date = user.token_expiration
-                #datetime format
-                expiration_token_date = datetime.strptime(_date, "%Y-%m-%d %H:%M:%S")
+        if user:
+            #string format
+            _date = user.token_expiration
+            #datetime format
+            expiration_token_date = datetime.strptime(_date, "%Y-%m-%d %H:%M:%S")
                 
-                if connexion_time < expiration_token_date:
-                    if user.token_value == token_filled:
-                        token_success = 1
-                    
+            if connexion_time < expiration_token_date:
+                if user.token_value == token_filled:
+                    token_success = 1
                 else:
-                    alert_connexion_latency = 1
-                    token = Token()
-                    user.token_value = token.value
-                    user.token_expiration = token.expiration
-                    db.session.commit()
-                    UserManager.send_mail(user.mail,token.value)
-
+                    token_success = token_success                   
             else:
-                alert_username = 1
+                alert_connexion_latency = 1
+                token = Token()
+                user.token_value = token.value
+                user.token_expiration = token.expiration
+                db.session.commit()
+                UserManager.send_mail(user.mail,token.value)
+        else:
+            alert_username = 1
         result = (alert_username, alert_connexion_latency, token_success)
-
         return result
 
 

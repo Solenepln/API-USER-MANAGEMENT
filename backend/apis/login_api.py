@@ -13,20 +13,23 @@ api = Namespace("login", description="login related")
 @api.route("")
 class UserLogin(Resource):
     def get (self):
-        return make_response(render_template('login_home.html'))
+        _get = 1
+        return make_response(render_template('login.html', _get = _get))
     def post(self):
-        access_user, alert_username, current_user = UserManager.login()
-        return make_response(render_template('login.html', access_user = access_user, alert_username = alert_username))
+        connexion = UserManager.login()
+        password_success = connexion[0]
+        username_success = connexion[1]  
+        return make_response(render_template('login.html', password_success = password_success, username_success = username_success))
     
-
 @api.route('/token')
 class UserToken(Resource):
+    def get(self):
+        _get = 1
+        return make_response(render_template('token.html', _get = _get))
+
     def post(self):
         result = UserManager.check_token()
         alert_username = result[0]
         alert_connexion_latency = result[1]
         token_success = result[2] 
         return make_response(render_template('token.html',alert_username = alert_username, alert_connexion_latency = alert_connexion_latency, token_success = token_success))
-    
-    def get(self):
-        return make_response(render_template('home_token.html'))
