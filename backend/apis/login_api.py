@@ -18,8 +18,12 @@ class UserLogin(Resource):
     def post(self):
         connexion = UserManager.login()
         password_success = connexion[0]
-        username_success = connexion[1]  
-        return make_response(render_template('login.html', password_success = password_success, username_success = username_success))
+        username_success = connexion[1]
+
+        if password_success and username_success:
+            return redirect("http://127.0.0.1:5001/login/token")
+        else: 
+            return make_response(render_template('login.html', password_success = password_success, username_success = username_success))
     
 @api.route('/token')
 class UserToken(Resource):
@@ -34,6 +38,6 @@ class UserToken(Resource):
         token_success = result[2]
 
         if token_success:
-            return make_response(redirect(render_template('personal_page.html')))
-        else:
-            return make_response(render_template('token.html',alert_username = alert_username, alert_connexion_latency = alert_connexion_latency, token_success = token_success))
+            #redirect to personnal page
+
+        return make_response(render_template('token.html',alert_username = alert_username, alert_connexion_latency = alert_connexion_latency, token_success = token_success))
