@@ -120,6 +120,7 @@ class UserManager():
         token_filled = request.form.get('token')
 
         if user:
+            username = user.username
             #string format
             _date = user.token_expiration
             #datetime format
@@ -139,7 +140,7 @@ class UserManager():
                 UserManager.send_mail(user.mail,token.value)
         else:
             alert_username = 1
-        result = (alert_username, alert_connexion_latency, token_success)
+        result = (alert_username, alert_connexion_latency, token_success, username)
         return result
 
 

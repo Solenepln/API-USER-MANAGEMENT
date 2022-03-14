@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask_restx import Api, Resource, Namespace
 from backend import app
 from flask import request, render_template, make_response
@@ -12,13 +12,16 @@ api = Api(
     title = "User Management"
 )
 
+# @api.route("")
+# def test():
+#     return 'hello'
+
 @api.route("/home")
 class HomePage(Resource):
     def get(self):
         hello_display = UserManager.hello()
         return make_response(render_template("home.html"))
         
-
 @api.route("/welcome")
 class WelcomePerson(Resource):
     def get(self): 

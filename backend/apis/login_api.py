@@ -1,4 +1,4 @@
-from flask import Flask, redirect
+from flask import Flask, redirect, url_for
 from flask_restx import Namespace
 from flask_restx import Api, Resource
 from backend import app
@@ -21,7 +21,7 @@ class UserLogin(Resource):
         username_success = connexion[1]
 
         if password_success and username_success:
-            return redirect("http://127.0.0.1:5001/login/token")
+            return redirect(url_for('login_user_token'))
         else: 
             return make_response(render_template('login.html', password_success = password_success, username_success = username_success))
     
@@ -36,8 +36,9 @@ class UserToken(Resource):
         alert_username = result[0]
         alert_connexion_latency = result[1]
         token_success = result[2]
+        username = result[3]
 
         if token_success:
-            #redirect to personnal page
+            return make_response(render_template('personal_page.html', name = username))
 
         return make_response(render_template('token.html',alert_username = alert_username, alert_connexion_latency = alert_connexion_latency, token_success = token_success))
