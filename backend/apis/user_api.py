@@ -7,6 +7,7 @@ from flask_restx import Api, Resource
 from backend import app
 from ..managers.user_manager import UserManager
 import os
+from ..utils import login_required
   
 api = Namespace("users", description="user related")
 
@@ -21,6 +22,7 @@ api = Namespace("users", description="user related")
 
 @api.route("")
 class UserApi(Resource):
+    @login_required
     def get(self):
         #database with users
         users = UserManager.display_users()

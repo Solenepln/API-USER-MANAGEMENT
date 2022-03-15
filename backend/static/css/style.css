@@ -1,3 +1,25 @@
+.crumbs {
+  display: flex;
+  align-items: center;
+}
+
+.profile {
+  height: 40px;
+  width: 40px;
+  margin-left: 10px;
+  text-align: center;
+  color: #fff;
+  font-size: 30px;
+  line-height: 35px;
+}
+
+.profile.login {
+  background: rgb(72, 189, 72);
+}
+
+.profile.logout {
+  background: rgb(231, 79, 68);
+}
 
 .crumbs ol {
   list-style-type: none;
@@ -5,7 +27,7 @@
 }
 
 ol{
-  margin-left: 20%;
+  /* margin-left: 20%; */
 }
 
 .crumb {
