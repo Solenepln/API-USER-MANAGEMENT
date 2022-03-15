@@ -1,4 +1,5 @@
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, session
+from flask_session import Session
 from flask_restx import Namespace
 from flask_restx import Api, Resource
 from backend import app
@@ -24,7 +25,9 @@ class UserLogin(Resource):
             return redirect(url_for('login_user_token'))
         else: 
             return make_response(render_template('login.html', password_success = password_success, username_success = username_success))
-    
+
+
+
 @api.route('/token')
 class UserToken(Resource):
     def get(self):
@@ -39,6 +42,8 @@ class UserToken(Resource):
         username = result[3]
 
         if token_success:
-            return redirect(url_for('users_user_api'))
+            session["username"] = request.form.get("username")
+            return make_response(render_template('personal_page.html'))
 
         return make_response(render_template('token.html',alert_username = alert_username, alert_connexion_latency = alert_connexion_latency, token_success = token_success))
+

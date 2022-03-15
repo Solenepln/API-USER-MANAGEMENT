@@ -1,13 +1,23 @@
-from flask import Flask
+from curses import flash
+from functools import wraps
+from flask import Flask, session, request, render_template, make_response, redirect, url_for
+from flask_session import Session
 from flask_restx import Namespace
 from flask_restx import Api, Resource
 from backend import app
-from flask import request
 from ..managers.user_manager import UserManager
-from flask import render_template, make_response
 import os
-
+  
 api = Namespace("users", description="user related")
+
+# def login_required(f):
+#     @wraps(f)
+#     def decorated_function(*args, **kwargs):
+#         if session.username is None:
+#             return redirect(url_for('login', next=request.url))
+#         return f(*args, **kwargs)
+#     return decorated_function
+
 
 @api.route("")
 class UserApi(Resource):

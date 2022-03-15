@@ -1,5 +1,8 @@
+from curses import flash
+from functools import wraps
 import os
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, session
+from flask_session import Session
 from flask_restx import Api, Resource, Namespace
 from backend import app
 from flask import request, render_template, make_response
@@ -11,6 +14,7 @@ from .login_api import api as login_action
 api = Api(
     title = "User Management"
 )
+
 
 # @api.route("")
 # def test():
@@ -36,6 +40,11 @@ class SubscribePage(Resource):
         alert = UserManager.create_user()
         return make_response(render_template("registration.html", alert=alert))
 
+@api.route("/logout")
+class LogOut(Resource):
+    def get(self):
+        session["username"] = None
+        return redirect(url_for("home_page"))
 
 api.add_namespace(user_display, path="/users")
 api.add_namespace(login_action, path="/login")
