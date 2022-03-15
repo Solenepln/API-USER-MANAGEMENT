@@ -19,14 +19,22 @@ api = Api(
 @api.route("/home")
 class HomePage(Resource):
     def get(self):
-        hello_display = UserManager.hello()
-        return make_response(render_template("home.html"))
-        
+        return redirect(url_for('welcome_person'))
+
 @api.route("/welcome")
 class WelcomePerson(Resource):
     def get(self): 
         name = UserManager.welcome()
-        return make_response(render_template("welcome.html", name_recover = name))
+        return make_response(render_template("home.html", name_recover = name))
+
+@api.route("/registration")
+class SubscribePage(Resource):
+    def get(self):
+        _get = 1
+        return make_response(render_template("registration.html", _get = _get))
+    def post(self):
+        alert = UserManager.create_user()
+        return make_response(render_template("registration.html", alert=alert))
 
 
 api.add_namespace(user_display, path="/users")

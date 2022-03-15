@@ -49,10 +49,10 @@ class UserManager():
             db.session.add(user)
             db.session.commit()  
             
-        users = UserManager.display_users()
-        result = (alert,users)
+        #users = UserManager.display_users()
+        #result = (alert)
         
-        return result
+        return alert
 
     @classmethod
     def info_user(self,username:str):  

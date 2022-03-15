@@ -39,6 +39,6 @@ class UserToken(Resource):
         username = result[3]
 
         if token_success:
-            return make_response(render_template('personal_page.html', name = username))
+            return redirect(url_for('users_user_api'))
 
         return make_response(render_template('token.html',alert_username = alert_username, alert_connexion_latency = alert_connexion_latency, token_success = token_success))

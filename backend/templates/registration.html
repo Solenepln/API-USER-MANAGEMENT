@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href = "{{ url_for ('static', filename = 'css/style.css')}}" rel="stylesheet">
+    <title>Registration page</title>
+</head>
+
+<body>
+  <nav class="crumbs">
+    <ol>
+      <li class="crumb"><a href="http://127.0.0.1:5001/welcome" > Home Page</a></h2></li>
+      <li class="crumb"><a href="http://127.0.0.1:5001/users" > Users List & Form to subscribe</a></h2></li>
+      <li class="crumb"><a href="http://127.0.0.1:5001/login">Login Page</a></li>
+    </ol>
+  </nav>
+<h1>Please, register:</h1>
+
+<div class = "form">
+<form action="" method="post" class="form-example">
+    <div class="form-example">
+      <label for="username">Username: </label>
+      <input type="text" name="username" id="username" required>
+    </div>
+    <div class="form-example">
+      <label for="Password">Password: </label>
+      <input type="password" name="password" id="password" required>
+    </div>
+    <div class="form-example">
+        <label for="name">Name: </label>
+        <input type="text" name="name" id="name" required>
+    </div>
+    <div class="form-example">
+        <label for="firstname">Firstname: </label>
+        <input type="text" name="firstname" id="firstname" required>
+    </div>
+    <div class="form-example">
+      <label for="mail">Mail: </label>
+      <input type="text" name="mail" id="mail" required>
+  </div>
+    <div class="form-example">
+      <input type="submit" value="Subscribe!">
+    </div>
+  </form>
+
+  {% if _get %}
+  {% else %}
+    {% if not alert %}
+        <h1>You've been successfully registered!</h1>
+        <a href="http://127.0.0.1:5001/login" > Login Here </a></li>
+    {% else %}
+        <h1>Username already existing, choose another one please &#128516</h1>
+    {% endif %}
+  {% endif %}
+  </body>
+  </html>

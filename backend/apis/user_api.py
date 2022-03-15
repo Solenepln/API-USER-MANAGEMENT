@@ -15,13 +15,6 @@ class UserApi(Resource):
         #database with users
         users = UserManager.display_users()
         return make_response(render_template('users.html', users = users))
-    
-    def post(self):
-        result = UserManager.create_user()
-        alert = result[0]
-        users = result[1]
-        return make_response(render_template('users.html', alert=alert, users = users))
-
 
 @api.route("/")
 class InfosUser(Resource):

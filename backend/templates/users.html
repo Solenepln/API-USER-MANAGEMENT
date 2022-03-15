@@ -9,18 +9,18 @@
 </head>
 
 <body>
+
   <nav class="crumbs">
     <ol>
-      <li class="crumb"><a href="http://127.0.0.1:5001/" > Home Page</a></h2></li>
-      <li class="crumb"><a href="http://127.0.0.1:5001/users" > Users List & Form to subscribe</a></h2></li>
-      <li class="crumb"><a href="http://127.0.0.1:5001/login">Login Page</a></li>
+        <li class="crumb"><a href="http://127.0.0.1:5001/welcome" > Home Page</a></h2></li>
+        <li class="crumb"><a href="http://127.0.0.1:5001/users" > Users List & Form to subscribe</a></h2></li>
+        <li class="crumb"><a href="http://127.0.0.1:5001/login">Login Page</a></li>
     </ol>
-  </nav>
-<div class = "users">
-  {% if users %}
+</nav> 
+  
 
-    <!--display database of users-->
-    {% if not alert %}
+<div class = "users">
+{% if users %}
       <h1> Users list:</h1>
       <table>
         <tr>
@@ -36,44 +36,11 @@
       </tr>
     {% endfor %}
     </table>       
-    {% else %}
-      <h3>Username already existing, choose another one please &#128516</h>
-    {% endif %}
 {% else %}
   <h1>Empty database for now!</h1>
 {% endif %}
 </div>
-
-    <!--FORM-->
-    <h1>It's your turn!</h1>
-
-    <div class = "form">
-    <form action="users" method="post" class="form-example">
-        <div class="form-example">
-          <label for="username">Username: </label>
-          <input type="text" name="username" id="username" required>
-        </div>
-        <div class="form-example">
-          <label for="Password">Password: </label>
-          <input type="password" name="password" id="password" required>
-        </div>
-        <div class="form-example">
-            <label for="name">Name: </label>
-            <input type="text" name="name" id="name" required>
-        </div>
-        <div class="form-example">
-            <label for="firstname">Firstname: </label>
-            <input type="text" name="firstname" id="firstname" required>
-        </div>
-        <div class="form-example">
-          <label for="mail">Mail: </label>
-          <input type="text" name="mail" id="mail" required>
-      </div>
-        <div class="form-example">
-          <input type="submit" value="Subscribe!">
-        </div>
-      </form>
-  </div>
+</div>
   
 </body>
 </html>
