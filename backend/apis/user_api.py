@@ -30,11 +30,13 @@ class UserApi(Resource):
 
 @api.route("/")
 class InfosUser(Resource):
+    @login_required
     def get(self):
         return make_response(render_template('user_info.html'))
 
 @api.route('/<username>')
 class InfosUserKnown(Resource):
+    @login_required
     def get(self,username):
         if username:
             found_username = UserManager.info_user(username)  

@@ -1,10 +1,30 @@
 <nav class="crumbs">
+    {% if session.username %}
     <ol>
         <li class="crumb"><a href="http://127.0.0.1:5001/welcome" > Home Page</a></h2></li>
-        <li class="crumb"><a href="http://127.0.0.1:5001/users" > Users List & Form to subscribe</a></h2></li>
-        <li class="crumb"><a href="http://127.0.0.1:5001/login">Login Page</a></li>
+        <li class="crumb"><a href="http://127.0.0.1:5001/users" > Users List</a></h2></li>   
     </ol>
-    <div class="profile login">
-        {{session.username[0]}}
+        <div class = "infos">
+            <div class="profile login">
+                {{session.username[0]}}
+            </div> 
+            <button>
+                <a href="http://127.0.0.1:5001/logout">log out</a>
+            </button>
+        </div>
+        
+        
+    {% else %}
+    <ol>
+        <li class="crumb"><a href="http://127.0.0.1:5001/welcome" > Home Page</a></h2></li>
+        <li class="crumb"><a href="http://127.0.0.1:5001/registration" > Form to subscribe</a></h2></li>
+        
+    </ol>
+    <div class = "infos">
+        <button>
+            <a href="http://127.0.0.1:5001/login">log in</a>
+        </button>
     </div>
+    
+    {% endif %}
 </nav>
