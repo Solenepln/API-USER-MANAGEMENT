@@ -40,6 +40,11 @@ class SubscribePage(Resource):
         alert = UserManager.create_user()
         return make_response(render_template("registration.html", alert=alert))
 
+@api.route("/YourHome")
+class PersonalHome(Resource):
+    def get(self):
+        return make_response(render_template("personal_page.html"))
+
 @api.route("/logout")
 class LogOut(Resource):
     def get(self):

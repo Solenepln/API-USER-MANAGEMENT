@@ -11,9 +11,11 @@
 <body>
     {% include 'nav_bar.html' %}
 
-    {% if found_username %}
-        {% if found_username == 1 %}
-            <h2>&#128073<a href="http://127.0.0.1:5001/users" > Please submit a valid username according to this list</a></h2>  
+    {% if username_missing %}
+        <h2>Please submit your username</h2>
+    {% else %}
+        {% if alert_rights%}
+        <div class = "alert_user"><p>NO ACCESS TO THESE INFORMATIONS, ONLY PUT YOUR USERNAME</p></div>
         {% else %}
             <h1> User informations:</h1>
             <table>
@@ -33,10 +35,8 @@
             <td>{{ found_username.firstname }}</td>
             <td>{{ found_username.token }}</td>
             </tr>
-            </table> 
-        {% endif %}    
-    {% else %}
-        <h2><a href="http://127.0.0.1:5001/users" >Please submit a username</a></h2>
+            </table>
+        {% endif %}
     {% endif %}
 
 </body>

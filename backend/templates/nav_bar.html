@@ -6,7 +6,8 @@
     </ol>
         <div class = "infos">
             <div class="profile login">
-                {{session.username[0]}}
+                
+                <a href = "http://127.0.0.1:5001/users/{{session.username}}" title="Mes infos">{{session.username[0]}}</a>
             </div> 
             <button>
                 <a href="http://127.0.0.1:5001/logout">log out</a>

@@ -59,11 +59,11 @@ class UserManager():
         research_username = username
         found_username = User.query.filter_by(username = research_username).first()
             
-        if found_username:
-            found_username = found_username
+        # if found_username:
+        #     found_username = found_username
         
-        else:
-            found_username = 1
+        # else:
+        #     found_username = None
         
         return found_username
 

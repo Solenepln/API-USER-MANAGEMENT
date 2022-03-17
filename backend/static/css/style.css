@@ -23,7 +23,25 @@
 }
 
 .profile.login {
-  background: rgb(16, 179, 59);
+  background: rgb(166, 209, 166);
+  margin-right: 20px;
+}
+
+.profile.login a{
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.alert{
+  display:flex;
+  align-items: center;
+  position:relative;
+  left: 25%;
+  width: 600px;
+  height: 50px;
+  border:solid red;
+  
 }
 
 button {

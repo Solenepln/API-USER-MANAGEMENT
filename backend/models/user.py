@@ -28,7 +28,7 @@ def token_generated():
 class Token(): 
     def __init__(self):
         self.value = token_generated()
-        self.expiration = datetime.now().replace(microsecond=0) + timedelta(minutes=2)
+        self.expiration = datetime.now().replace(microsecond=0) + timedelta(minutes=10)
         
     def __repr__(self):
         #return 'Value: %r Date: %r' (self.value,self.expiration)

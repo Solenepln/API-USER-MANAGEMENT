@@ -11,15 +11,6 @@ from ..utils import login_required
   
 api = Namespace("users", description="user related")
 
-# def login_required(f):
-#     @wraps(f)
-#     def decorated_function(*args, **kwargs):
-#         if session.username is None:
-#             return redirect(url_for('login', next=request.url))
-#         return f(*args, **kwargs)
-#     return decorated_function
-
-
 @api.route("")
 class UserApi(Resource):
     @login_required
@@ -32,12 +23,18 @@ class UserApi(Resource):
 class InfosUser(Resource):
     @login_required
     def get(self):
-        return make_response(render_template('user_info.html'))
+        username_missing = 1
+        return make_response(render_template('user_info.html', username_missing = username_missing))
 
 @api.route('/<username>')
 class InfosUserKnown(Resource):
     @login_required
     def get(self,username):
-        if username:
-            found_username = UserManager.info_user(username)  
-        return make_response(render_template('user_info.html', found_username = found_username))
+        alert_rights = 0
+        found_username = None
+        if username == session["username"]:
+            found_username = UserManager.info_user(username)
+        else:
+            alert_rights = 1
+        
+        return make_response(render_template('user_info.html', alert_rights = alert_rights, found_username = found_username))

@@ -43,7 +43,7 @@ class UserToken(Resource):
 
         if token_success:
             session["username"] = request.form.get("username")
-            return make_response(render_template('personal_page.html'))
+            return redirect(url_for("personal_home"))
 
         return make_response(render_template('token.html',alert_username = alert_username, alert_connexion_latency = alert_connexion_latency, token_success = token_success))
 
