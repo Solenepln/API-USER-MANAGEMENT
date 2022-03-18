@@ -1,5 +1,6 @@
 '''app entry point'''
 from flask import Flask
+from datetime import timedelta
 
 app = Flask(__name__)
 
@@ -9,7 +10,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 #SESSION CONFIGURATION
-app.config["SESSION_PERMANENT"] = False
+#app.config["SESSION_PERMANENT"] = False
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30)
 app.config["SESSION_TYPE"] = "filesystem"
 
 from .models import db

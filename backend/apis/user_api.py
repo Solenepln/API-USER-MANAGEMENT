@@ -36,5 +36,4 @@ class InfosUserKnown(Resource):
             found_username = UserManager.info_user(username)
         else:
             alert_rights = 1
-        
         return make_response(render_template('user_info.html', alert_rights = alert_rights, found_username = found_username))
